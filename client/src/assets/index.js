@@ -2,7 +2,7 @@ import ai from './ai.png';
 import download from './download.png';
 import file from './file.png';
 import logoShirt from './logo-tshirt.png';
-import stylistShirt from './stylist-tshirt.png';
+import stylishShirt from './stylish-tshirt.png';
 import swatch from './swatch.png';
 
 export {
@@ -10,6 +10,6 @@ export {
     download,
     file,
     logoShirt,
-    stylistShirt,
+    stylishShirt,
     swatch,
 }

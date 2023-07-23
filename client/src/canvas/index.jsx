@@ -8,15 +8,20 @@ import CameraRig from './CameraRig';
 
 function CanvasModel() {
   return (
-    <Canvas>
+    <Canvas
+      shadows
+      camera={{ position: [0,0,0], fov: 35}}
+      gl={{  }}
+      className="w-full h-full transition-all ease-in"
+    >
       <ambientLight intensity={0.5}/>
       <Environment preset="city"/>
-      {/* <CameraRig> */}
-        {/* <Backdrop/> */}
+      <CameraRig>
+        <Backdrop/>
         <Center>
           <Shirt/>
         </Center>
-      {/* </CameraRig> */}
+      </CameraRig>
     </Canvas>
   )
 }

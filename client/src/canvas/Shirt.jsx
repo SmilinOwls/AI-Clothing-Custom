@@ -4,28 +4,62 @@ import { useFrame } from '@react-three/fiber';
 import { Decal, useGLTF, useTexture } from '@react-three/drei';
 
 import state from '../store';
+import { easing } from 'maath';
 
 function Shirt() {
-  const snap = useSnapshot(state);
-  const { nodes, materials } = useGLTF('./shirt_baked.glb');
+    const snap = useSnapshot(state);
+    const { nodes, materials } = useGLTF('./shirt_baked.glb');
 
-  const logoTexture = useTexture(snap.logoDecal);
-  const fullTexture = useTexture(snap.fullDecal);
-  
-  console.log(nodes);
+    const logoTexture = useTexture(snap.logoDecal);
+    const fullTexture = useTexture(snap.fullDecal);
 
-  return (
-    <group>
-        <mesh
-            castShadow
-            geometry={nodes.T_Shirt_male.geometry}
-            material={materials.lamert1}
-            material-roughness={1}
-            dispose={null}
-        >
-        </mesh>
-    </group>
-  )
+    // console.log(nodes);
+
+    // set the color of model
+    useFrame((state, delta) => {
+        easing.dampC(
+            materials.lambert1.color,
+            snap.color, 
+            0.25, 
+            delta
+        );
+    });
+
+    const stateString = JSON.stringify(snap);
+    
+    return (
+        <group key={stateString}>
+            <mesh
+                castShadow
+                geometry={nodes.T_Shirt_male.geometry}
+                material={materials.lambert1}
+                dispose={null}
+            >
+                {snap.isFullTexture && (
+                    <Decal
+                        position={[0, 0, 0]}
+                        rotation={[0, 0, 0]}
+                        scale={1}
+                        map={fullTexture}
+                    >
+
+                    </Decal>
+                )}
+
+                {snap.isLogoTexture && (
+                    <Decal
+                        position={[0.03, -0.02, 0.15]}
+                        rotation={[0, 0, 0]}
+                        scale={0.15}
+                        map={logoTexture}
+                        depthTest={false}       
+                    >
+
+                    </Decal>
+                )}
+            </mesh>
+        </group>
+    )
 }
 
 export default Shirt

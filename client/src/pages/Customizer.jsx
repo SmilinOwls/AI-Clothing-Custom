@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSnapshot } from 'valtio';
 import state from '../store';
@@ -11,6 +11,50 @@ import { AIPicker, FilePicker, ColorPicker, CustomButton, Tab } from '../compone
 
 function Customizer() {
   const snap = useSnapshot(state);
+
+  const [activeEditorTab, setActiveEditorTab] = useState("");
+  const [activeFilterTab, setActiveFilterTab] = useState({
+    logoDecal: true,
+    fullDecal: false
+  });
+
+  const handleActiveEditorTab = () => {
+    switch (activeEditorTab) {
+      case "colorpicker":
+        return <ColorPicker />
+      case "aipicker":
+        return <AIPicker />
+      case "filepicker":
+        return <FilePicker handleDecal={handleDecal} />
+      default:
+        return null;
+    }
+  };
+
+  const handleDecal = (type, result) => {
+    const decalType = type !== "none" ? DecalTypes[type] : 'logoDecal';
+    state[decalType] = type !== "none" ? result :  './threejs.png';
+
+    if(!activeFilterTab[decalType]){
+      handleActiveFilterTab(decalType);
+    }
+  };
+
+  const handleActiveFilterTab = (decalType) => {
+    switch(decalType) {
+      case "logoDecal":
+        state.isLogoTexture = !activeFilterTab[decalType];
+        break;
+      case "fullDecal":
+        state.isFullTexture = !activeFilterTab[decalType];
+        break;
+      default:
+        state.isLogoTexture = true;
+        state.isFullTexture = false;
+        break;
+    }
+    setActiveFilterTab({...activeFilterTab, [decalType]: !activeFilterTab[decalType]})
+  };
 
   return (
     <AnimatePresence>
@@ -38,9 +82,10 @@ function Customizer() {
                   <Tab
                     key={idx}
                     tab={tab}
-                    handleClick={() => { }}
+                    handleClick={() => setActiveEditorTab(tab.name)}
                   />
                 ))}
+                { handleActiveEditorTab() }
               </div>
             </div>
           </motion.div>
@@ -55,9 +100,7 @@ function Customizer() {
                   <Tab
                     key={idx}
                     tab={tab}
-                    isActiveTab
-                    isFilterTab
-                    handleClick={() => { }}
+                    handleClick={() => handleActiveFilterTab(tab.decal)}
                   />
                 ))}
               </div>

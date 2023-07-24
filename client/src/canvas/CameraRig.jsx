@@ -16,7 +16,7 @@ function CameraRig({ children }) {
 
     // set the initial position of the modal
     let target = !isMobile ? [0, 0, 1.5] : snap.intro ? [0, 0.2, 1.5] : [0, 0, 1.5];
-    if(snap.intro && window.innerWidth > 1260) target = [-0.5, 0, 1.5];
+    if(snap.intro && window.innerWidth > 1260) target = [-0.3, 0, 1.5];
 
     // set the model camera position
     easing.damp3(

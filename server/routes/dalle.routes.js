@@ -1,36 +1,37 @@
-const express = require('express');
-const { Configuration, OpenAIApi } = require('openai');
+import express from 'express';
+import { Configuration, OpenAIApi } from 'openai';
 
 const router = express.Router();
-
-const config = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-});
-
-const openai = new OpenAIApi(config);
 
 router.get('/', (req, res) => {
     res.status(200).json({ message: "Hello from DALL.E"});
 });
 
 router.post('/', async (req, res) => {
+    const config = new Configuration({
+        apiKey: process.env.OPENAI_API_KEY,
+    });
+    
+    const openai = new OpenAIApi(config);
+
     try {
         const { prompt } = req.body;
         const response = await openai.createImage({
             prompt: prompt,
             n: 1,
-            size: '1024x1024',
+            size: '256x256',
             response_format: 'b64_json'
         });
 
-        const photo = response.data.data[0];
+        const photo = response.data.data[0].b64_json;
 
         res.status(200).json({ photo: photo});
         
     } catch (error) {
-        console.log(error);
-        res.status(401).json({ message: "Something went wrong!"});
+        // console.error(error);
+        res.status(500).json({ message: "Something went wrong!"});
     }
 });
+
 
 export default router;

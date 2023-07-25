@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSnapshot } from 'valtio';
 import state from '../store';
-import config from '../config/config';
 import { download } from '../assets';
 import { downloadCanvasToImage } from '../config/helpers';
 import { EditorTabs, FilterTabs, DecalTypes } from '../config/constraint';
@@ -61,9 +60,16 @@ function Customizer() {
       {!snap.intro && (
         <>
           <motion.div
-            className='absolute top-5 right-5'
+            className='absolute top-5 right-5 flex gap-3'
             {...fadeAnimation}
           >
+            <CustomButton
+              type="outline"
+              content="Download"
+              handleClick={downloadCanvasToImage}
+              customStyles="w-fit font-bold text-md py-2 px-4"
+            />
+
             <CustomButton
               type="filled"
               content="Back"

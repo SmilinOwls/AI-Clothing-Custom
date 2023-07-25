@@ -11,7 +11,7 @@ function CanvasModel() {
     <Canvas
       shadows
       camera={{ position: [0,0,0], fov: 35}}
-      gl={{  }}
+      gl={{ preserveDrawingBuffer: true }} // save the drawing buffer for downloading
       className="w-full h-full transition-all ease-in"
     >
       <ambientLight intensity={0.5}/>

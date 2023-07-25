@@ -1,19 +1,17 @@
 import React from 'react'
 import { useSnapshot } from 'valtio';
 import state from '../store';
-import AIPicker from './AIPicker';
-import ColorPicker from './ColorPicker';
-import FilePicker from './FilePicker';
 
-function Tab( { tab, isFilterTab, isActiveTab, handleClick}) {
+function Tab( { tab, isFilterTab, handleClick}) {
   
   const snap = useSnapshot(state);
 
   return (
     <div
-      className={`tab-btn ${isFilterTab  ? 'rounded-full glassmorhism' : 'rounded-4'}`}
+      className={`tab-btn`}
       onClick={handleClick}
-      style={isFilterTab &&  isActiveTab ? {
+      style={isFilterTab  ? {
+        borderRadius: "100%",
         backgroundColor: snap.color,
         opacity: 0.5
       } : {
@@ -21,7 +19,7 @@ function Tab( { tab, isFilterTab, isActiveTab, handleClick}) {
         opacity: 1
       }}
     >
-      <img src={tab.icon} alt={tab.name} className={isFilterTab ? 'w-2/3 h-2/3': 'w-11/12 h-11/12 object-contain'}/>
+      <img src={tab.icon} alt={tab.name} className={`object-contain ${isFilterTab ? 'w-2/3 h-2/3': 'w-11/12 h-11/12'}`}/>
     </div>
   )
 }

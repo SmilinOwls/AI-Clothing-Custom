@@ -4,7 +4,7 @@ import { useSnapshot } from 'valtio';
 import state from '../store';
 import config from '../config/config';
 import { download } from '../assets';
-import { downloadCanvasToImage, reader } from '../config/helpers';
+import { downloadCanvasToImage } from '../config/helpers';
 import { EditorTabs, FilterTabs, DecalTypes } from '../config/constraint';
 import { slideAnimation, fadeAnimation } from '../config/motion';
 import { AIPicker, FilePicker, ColorPicker, CustomButton, Tab } from '../components';
@@ -100,6 +100,7 @@ function Customizer() {
                   <Tab
                     key={idx}
                     tab={tab}
+                    isFilterTab={activeFilterTab[tab.decal]}
                     handleClick={() => handleActiveFilterTab(tab.decal)}
                   />
                 ))}

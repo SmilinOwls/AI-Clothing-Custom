@@ -1,7 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useSnapshot } from 'valtio';
 import CustomButton from './CustomButton';
-import state from '../store';
 import { reader } from '../config/helpers';
 
 function FilePicker({ handleDecal }) {
@@ -9,6 +7,8 @@ function FilePicker({ handleDecal }) {
   const selectedType = useRef("");
 
   const readFile = (action) => {
+    if(!file) return alert('Please input file!');
+    
     const type = action === "reset" ? "none" : action === "apply" ? selectedType.current.value : null;
     reader(file).then(
       (result) => {
@@ -33,7 +33,7 @@ function FilePicker({ handleDecal }) {
           {file.length === 0 ? "No file selected" : file.name}
         </div>
         <div className='mt-2'>
-          <select defaultValue="logo" ref={selectedType} className="py-2 px-3 text-sm bg-gray-300 text-gray-700 cursor-pointer rounded-md">
+          <select defaultValue="logo" ref={selectedType} className="select-container">
             <option value="logo">Logo</option>
             <option value="full">Full</option>
           </select>

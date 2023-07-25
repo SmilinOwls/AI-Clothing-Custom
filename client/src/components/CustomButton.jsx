@@ -4,7 +4,7 @@ import { useSnapshot } from 'valtio';
 import state from '../store';
 import { getContrastingColor } from '../config/helpers';
 
-function CustomButton({ type, content, customStyles, handleClick }) {
+function CustomButton({ type, content, customStyles, handleClick, children }) {
     const snap = useSnapshot(state);
     const style = (type) => {
         if (type === 'filled') {
@@ -27,6 +27,7 @@ function CustomButton({ type, content, customStyles, handleClick }) {
             style={style(type)}
             onClick={handleClick}
         >
+            {children}
             {content}
         </button>
     )

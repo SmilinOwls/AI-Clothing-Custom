@@ -67,8 +67,10 @@ function Customizer() {
               type="outline"
               content="Download"
               handleClick={downloadCanvasToImage}
-              customStyles="w-fit font-bold text-md py-2 px-4"
-            />
+              customStyles="w-fit font-bold text-md py-2 px-4 flex gap-2 justify-center"
+            >
+              <img src={download} alt="Download" className='object-contain w-6'/>
+            </CustomButton>
 
             <CustomButton
               type="filled"

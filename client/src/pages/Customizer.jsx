@@ -42,10 +42,10 @@ function Customizer() {
   const handleActiveFilterTab = (decalType) => {
     switch(decalType) {
       case "logoDecal":
-        state.isLogoTexture = !activeFilterTab[decalType];
+        state.isLogoTexture = !activeFilterTab.logoDecal;
         break;
       case "fullDecal":
-        state.isFullTexture = !activeFilterTab[decalType];
+        state.isFullTexture = !activeFilterTab.fullDecal;;
         break;
       default:
         state.isLogoTexture = true;

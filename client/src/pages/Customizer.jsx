@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSnapshot } from 'valtio';
 import state from '../store';
@@ -86,9 +86,9 @@ function Customizer() {
           >
             <div className='flex items-center min-h-screen'>
               <div className='editortabs-container tabs'>
-                {EditorTabs.map((tab, idx) => (
+                {EditorTabs.map((tab) => (
                   <Tab
-                    key={idx}
+                    key={tab.name}
                     tab={tab}
                     handleClick={() => setActiveEditorTab(tab.name)}
                   />
@@ -104,9 +104,9 @@ function Customizer() {
           >
             <div className='flex justify-center'>
               <div className='filtertabs-container'>
-                {FilterTabs.map((tab, idx) => (
+                {FilterTabs.map((tab) => (
                   <Tab
-                    key={idx}
+                    key={tab.name}
                     tab={tab}
                     isFilterTab={activeFilterTab[tab.decal]}
                     handleClick={() => handleActiveFilterTab(tab.decal)}
